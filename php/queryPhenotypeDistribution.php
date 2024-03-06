@@ -96,7 +96,8 @@ if (isset($phenotype_array)) {
 						// $query_str = $query_str . "') ";
 
 						$query_str = $query_str . ") AS PHENO2 ";
-						$query_str = $query_str . "GROUP BY PHENO2.Chromosome, PHENO2.Position, PHENO2.Phenotype; ";
+						$query_str = $query_str . "GROUP BY PHENO2.Chromosome, PHENO2.Position, PHENO2.Phenotype ";
+						$query_str = $query_str . "ORDER BY PHENO2.Phenotype, PHENO2.Chromosome, PHENO2.Position; ";
 
 						
 						try {
