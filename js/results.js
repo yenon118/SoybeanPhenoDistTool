@@ -36,6 +36,7 @@ async function updatePhenotypeDistribution(phenotype_accordion_id, dataset, chro
 		phenotype_array = [];
 		for (let i = 0; i < result_array.length; i++) {
 			var header_array = Object.keys(result_array[i]);
+			var current_position = result_array[i]['Position'];
 			var current_phenotype = result_array[i]['Phenotype'];
 			var current_phenotype_data_type = result_array[i]['Phenotype_Data_Type'];
 
@@ -69,6 +70,12 @@ async function updatePhenotypeDistribution(phenotype_accordion_id, dataset, chro
 
 				// Add tr into table tag
 				var header_tr_tag = document.createElement("tr");
+				var header_th_tag = document.createElement("th");
+				header_th_tag.setAttribute("style", "border:1px solid black; min-width:100px; height:18.5px;");
+				header_tr_tag.appendChild(header_th_tag);
+				var header_th_tag = document.createElement("th");
+				header_th_tag.setAttribute("style", "border:1px solid black; min-width:100px; height:18.5px;");
+				header_tr_tag.appendChild(header_th_tag);
 				// Add headings
 				for (let i = 0; i < header_array.length; i++) {
 					var header_th_tag = document.createElement("th");
@@ -82,9 +89,43 @@ async function updatePhenotypeDistribution(phenotype_accordion_id, dataset, chro
 				phenotype_array.push(current_phenotype);
 			}
 
-			// Add content
+			// Add content row
 			var detail_tr_tag = document.createElement("tr");
 			detail_tr_tag.style.backgroundColor = ((i % 2) ? "#FFFFFF" : "#DDFFDD");
+
+			// Add a view phenotype distribution button column
+			var detail_td_tag = document.createElement("td");
+			detail_td_tag.setAttribute("style", "border:1px solid black; min-width:100px; height:18.5px;");
+			detail_tr_tag.appendChild(detail_td_tag);
+			var button_tag = document.createElement("button");
+			button_tag.type = 'button';
+			detail_td_tag.appendChild(button_tag);
+			var a_tag = document.createElement("a");
+			a_tag.target = '_blank';
+			a_tag.href = '/SoybeanPhenoDistTool/viewVariantAndPhenotypeFigures.php?';
+			a_tag.href = a_tag.href + 'Dataset=' + String(dataset) + '&';
+			a_tag.href = a_tag.href + 'Chromosome=' + String(chromosome) + '&';
+			a_tag.href = a_tag.href + 'Position=' + String(current_position) + '&';
+			a_tag.href = a_tag.href + 'Phenotype=' + String(current_phenotype) + '';
+			a_tag.innerHTML = 'View Phenotype Distribution';
+			button_tag.appendChild(a_tag);
+
+			// Add a view Allele Catalog button column
+			var detail_td_tag = document.createElement("td");
+			detail_td_tag.setAttribute("style", "border:1px solid black; min-width:100px; height:18.5px;");
+			detail_tr_tag.appendChild(detail_td_tag);
+			var button_tag = document.createElement("button");
+			button_tag.type = 'button';
+			detail_td_tag.appendChild(button_tag);
+			var a_tag = document.createElement("a");
+			a_tag.target = '_blank';
+			a_tag.href = '/SoybeanPhenoDistTool/viewAlleleCatalog.php?';
+			a_tag.href = a_tag.href + 'Dataset=' + String(dataset) + '&';
+			a_tag.href = a_tag.href + 'Chromosome=' + String(chromosome) + '&';
+			a_tag.href = a_tag.href + 'Position=' + String(current_position) + '&';
+			a_tag.href = a_tag.href + 'Phenotype=' + String(current_phenotype) + '';
+			a_tag.innerHTML = 'View Allele Catalog';
+			button_tag.appendChild(a_tag);
 			for (let j = 0; j < header_array.length; j++) {
 				var detail_td_tag = document.createElement("td");
 				detail_td_tag.setAttribute("style", "border:1px solid black; min-width:100px; height:18.5px;");
