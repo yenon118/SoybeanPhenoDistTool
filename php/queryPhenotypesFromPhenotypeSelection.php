@@ -8,12 +8,12 @@ $dataset = trim($_GET['Dataset']);
 
 
 $db = "soykb";
-$data_panel_selection_table = "pDist_" . $dataset . "_Phenotype_Selection";
+$phenotype_selection_table = "pDist_" . $dataset . "_Phenotype_Selection";
 
 
 // Generate SQL string
 $query_str = "SELECT * ";
-$query_str = $query_str . "FROM " . $db . "." . $data_panel_selection_table . ";";
+$query_str = $query_str . "FROM " . $db . "." . $phenotype_selection_table . ";";
 
 
 // Execute SQL string
