@@ -23,6 +23,14 @@ $phenotype = trim($_GET['Phenotype']);
 
 ?>
 
+
+<!-- Back button -->
+<a href="/SoybeanPhenoDistTool/"><button> &lt; Back </button></a>
+
+<br />
+<br />
+
+
 <!-- Query information -->
 <?php
 echo "<h3>Queried Variant and Phenotype:</h3>";

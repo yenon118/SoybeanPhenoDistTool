@@ -38,7 +38,6 @@ $query_str = $query_str . "    FROM " . $db . "." . $functional_effect_table . "
 $query_str = $query_str . "    WHERE (F.Chromosome = '" . $chromosome . "') ";
 $query_str = $query_str . "    AND (F.Position = " . $position . ") ";
 
-$query_str = $query_str . "    AND (F.Gene LIKE '%" . $gene . "%') ";
 $query_str = $query_str . ") AS FUNC ";
 $query_str = $query_str . "ON GENO.Chromosome = FUNC.Chromosome AND GENO.Position = FUNC.Position AND GENO.Genotype = FUNC.Allele ";
 $query_str = $query_str . "LEFT JOIN " . $db . "." . $accession_mapping_table . " AS AM ";
