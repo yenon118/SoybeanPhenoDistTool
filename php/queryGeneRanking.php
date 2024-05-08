@@ -62,7 +62,7 @@ if (isset($phenotype_array)) {
                     $query_str = $query_str . ") AS PHENO2 ";
                     $query_str = $query_str . "GROUP BY PHENO2.Gene, PHENO2.Phenotype, PHENO2.Phenotype_Data_Type ";
                     $query_str = $query_str . "ORDER BY Minimum_Test_P_Value, Maximum_Test_P_Value ";
-                    $query_str = $query_str . "LIMIT 1000; ";
+                    $query_str = $query_str . "; ";
 
                     try {
                         // Execute SQL string
