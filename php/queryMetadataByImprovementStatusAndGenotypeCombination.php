@@ -3,8 +3,8 @@
 include '../../config.php';
 include 'pdoResultFilter.php';
 include 'getTableNames.php';
-include 'getSummarizedDataByChromosomePositionsQueryString.php';
-include 'getDataByChromosomePositionsQueryString.php';
+include 'getSummarizedDataQueryString.php';
+include 'getDataQueryString.php';
 
 $dataset = trim($_GET['Dataset']);
 $key = trim($_GET['Key']);
@@ -40,7 +40,7 @@ if ($key == "Total") {
 }
 
 // Generate query string
-$query_str = getDataByChromosomePositionsQueryString(
+$query_str = getDataQueryString(
 	$dataset,
 	$gene,
 	$chromosome,

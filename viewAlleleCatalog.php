@@ -5,7 +5,7 @@ $TITLE = "Soybean Phenotype Distribution Tool";
 include '../config.php';
 include './php/pdoResultFilter.php';
 include './php/getTableNames.php';
-include './php/getSummarizedDataByChromosomePositionsQueryString.php';
+include './php/getSummarizedDataQueryString.php';
 ?>
 
 
@@ -26,18 +26,19 @@ include './php/getSummarizedDataByChromosomePositionsQueryString.php';
 
 <!-- Modal -->
 <div id="info-modal" class="info-modal">
-	<!-- Modal content -->
-	<div class="modal-content">
-		<span class="modal-close">&times;</span>
-		<div id="modal-content-div" style='width:100%; height:auto; border:3px solid #000; overflow:scroll;max-height:1000px;'></div>
-		<div id="modal-content-comment"></div>
-	</div>
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <div id="modal-content-div" style='width:100%; height:auto; border:3px solid #000; overflow:scroll;max-height:1000px;'></div>
+        <div id="modal-content-comment"></div>
+    </div>
 </div>
 
 
 <!-- Get and process the variables -->
 <?php
 $dataset = trim($_GET['Dataset']);
+$gene = trim($_GET['Gene']);
 $chromosome = trim($_GET['Chromosome']);
 $position = trim($_GET['Position']);
 $phenotype = trim($_GET['Phenotype']);
@@ -64,10 +65,31 @@ $disruptive_color_code = "#F26A55";
 $conservative_color_code = "#FF7F50";
 $splice_color_code = "#9EE85C";
 
+
 // Generate SQL string
-$query_str = "SELECT Chromosome, Start, End, Name AS Gene ";
-$query_str = $query_str . "FROM " . $db . "." . $gff_table . " ";
-$query_str = $query_str . "WHERE (Chromosome = '" . $chromosome . "') AND ((Start <= " . $position . ") AND (End >= " . $position . "));";
+$query_str = "";
+if ($query_str == "") {
+    if (isset($chromosome) && isset($position)) {
+        if (!empty($chromosome) && !empty($position)) {
+            $query_str = "SELECT Chromosome, Start, End, Name AS Gene ";
+            $query_str = $query_str . "FROM " . $db . "." . $gff_table . " ";
+            $query_str = $query_str . "WHERE (Chromosome = '" . $chromosome . "') AND ((Start <= " . $position . ") AND (End >= " . $position . "));";
+        }
+    }
+}
+if ($query_str == "") {
+    if (isset($gene)) {
+        if (!empty($gene)) {
+            $query_str = "SELECT Chromosome, Start, End, Name AS Gene ";
+            $query_str = $query_str . "FROM " . $db . "." . $gff_table . " ";
+            $query_str = $query_str . "WHERE (Name = '" . $gene . "');";
+        }
+    }
+}
+
+if ($query_str == "") {
+    exit();
+}
 
 // Execute SQL string
 $stmt = $PDO->prepare($query_str);
@@ -84,10 +106,10 @@ if (isset($gene_result_arr)) {
                 for ($i = 0; $i < count($gene_result_arr); $i++) {
 
                     // Generate query string
-                    $query_str = getSummarizedDataByChromosomePositionsQueryString(
+                    $query_str = getSummarizedDataQueryString(
                         $dataset,
                         $gene_result_arr[$i]["Gene"],
-                        $chromosome,
+                        $gene_result_arr[$i]["Chromosome"],
                         $db,
                         $gff_table,
                         $accession_mapping_table,
@@ -206,8 +228,8 @@ if (isset($gene_result_arr)) {
                                     echo "</div>";
 
                                     echo "<div style='margin-top:10px;' align='right'>";
-                                    echo "<button onclick=\"queryAllCountsByGeneChromosomePositions('" . $dataset . "', '" . $gene_result_arr[$i]["Gene"] . "', '" . $chromosome . "')\" style=\"margin-right:20px;\"> Download (Accession Counts)</button>";
-                                    echo "<button onclick=\"queryAllByGeneChromosomePositions('" . $dataset . "', '" . $gene_result_arr[$i]["Gene"] . "', '" . $chromosome . "')\"> Download (All Accessions)</button>";
+                                    echo "<button onclick=\"queryAllCountsByGeneChromosomePositions('" . $dataset . "', '" . $gene_result_arr[$i]["Gene"] . "', '" . $gene_result_arr[$i]["Chromosome"] . "')\" style=\"margin-right:20px;\"> Download (Accession Counts)</button>";
+                                    echo "<button onclick=\"queryAllByGeneChromosomePositions('" . $dataset . "', '" . $gene_result_arr[$i]["Gene"] . "', '" . $gene_result_arr[$i]["Chromosome"] . "')\"> Download (All Accessions)</button>";
                                     echo "</div>";
 
                                     echo "<br />";

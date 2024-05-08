@@ -3,8 +3,8 @@
 include '../../config.php';
 include 'pdoResultFilter.php';
 include 'getTableNames.php';
-include 'getSummarizedDataByChromosomePositionsQueryString.php';
-include 'getDataByChromosomePositionsQueryString.php';
+include 'getSummarizedDataQueryString.php';
+include 'getDataQueryString.php';
 
 $dataset = trim($_GET['Dataset']);
 $gene = $_GET['Gene'];
@@ -19,7 +19,7 @@ $gff_table = $table_names["gff_table"];
 $accession_mapping_table = $table_names["accession_mapping_table"];
 
 // Generate query string
-$query_str = getDataByChromosomePositionsQueryString(
+$query_str = getDataQueryString(
 	$dataset,
 	$gene,
 	$chromosome,

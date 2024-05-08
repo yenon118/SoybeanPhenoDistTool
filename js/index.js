@@ -148,7 +148,8 @@ async function updatePhenotypeSelections(phenotype_accordion_id, dataset) {
 
 			// Create an input tag
 			var input_tag = document.createElement('input');
-			input_tag.type = 'checkbox';
+			// input_tag.type = 'checkbox';
+			input_tag.type = 'radio';
 			input_tag.id = current_id;
 			input_tag.name = 'phenotype[]';
 			input_tag.value = current_phenotype;
