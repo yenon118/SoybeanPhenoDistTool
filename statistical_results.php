@@ -60,6 +60,7 @@ if (is_string($phenotypes)) {
 
 
 <div id="accordion_3"></div>
+<div id="message_div_3"></div>
 
 
 <script type="text/javascript" language="javascript" src="./js/statistical_results.js"></script>
@@ -69,7 +70,7 @@ if (is_string($phenotypes)) {
     var gene = <?php if(isset($gene)) {echo json_encode($gene, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
     var phenotypes = <?php if(isset($phenotype_array)) {echo json_encode($phenotype_array, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
 
-    updatePhenotypeDistribution('accordion_3', dataset, gene, phenotypes);
+    updatePhenotypeDistribution('accordion_3', 'message_div_3', dataset, gene, phenotypes);
 </script>
 
 

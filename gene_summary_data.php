@@ -40,6 +40,7 @@ $phenotypes = $_GET['phenotype'];
 
 
 <div id="accordion_2"></div>
+<div id="message_div_2"></div>
 
 
 <script type="text/javascript" language="javascript" src="./js/gene_summary_data.js"></script>
@@ -49,7 +50,7 @@ $phenotypes = $_GET['phenotype'];
     var chromosome = <?php if(isset($chromosome)) {echo json_encode($chromosome, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
     var phenotypes = <?php if(isset($phenotypes)) {echo json_encode($phenotypes, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
 
-    updateGeneRanking('accordion_2', dataset, phenotypes);
+    updateGeneRanking('accordion_2', 'message_div_2', dataset, phenotypes);
 </script>
 
 

@@ -21,8 +21,16 @@ async function queryGeneRanking(dataset, phenotypes) {
     });
 }
 
-async function updateGeneRanking(phenotype_accordion_id, dataset, phenotypes) {
+async function updateGeneRanking(phenotype_accordion_id, message_div_id, dataset, phenotypes) {
+    document.getElementById(message_div_id).innerHTML = "";
+    var p_tag = document.createElement("p");
+    p_tag.textContent = "Loading...";
+    document.getElementById(message_div_id).appendChild(p_tag);
+
     var result_array = await queryGeneRanking(dataset, phenotypes);
+
+    document.getElementById(message_div_id).innerHTML = "";
+
     if (result_array) {
         // Check the existance of accordion instance and remove if it exists
         var accordion_instance = $("#" + String(phenotype_accordion_id)).accordion("instance");
@@ -149,5 +157,10 @@ async function updateGeneRanking(phenotype_accordion_id, dataset, phenotypes) {
         if (phenotype_array.length == 1) {
             $("#" + String(phenotype_accordion_id)).accordion("option", "active", 0);
         }
+    } else {
+        document.getElementById(message_div_id).innerHTML = "";
+        var p_tag = document.createElement("p");
+        p_tag.textContent = "No data found in the database. ";
+        document.getElementById(message_div_id).appendChild(p_tag);
     }
 }
