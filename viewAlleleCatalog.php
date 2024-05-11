@@ -126,7 +126,7 @@ if (isset($gene_result_arr)) {
 
 
                     // Generate query string
-                    $phenotype_distribution_table = "pDist_" . $dataset . "_" . $gene_result_arr[$i]["Chromosome"] . "";;
+                    $phenotype_distribution_table = "pDist_" . $dataset . "_" . $gene_result_arr[$i]["Chromosome"] . "";
 
                     $query_str = "SELECT DISTINCT PHENO.Chromosome, ";
                     $query_str = $query_str . "PHENO.Position, ";
