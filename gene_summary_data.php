@@ -39,8 +39,8 @@ $phenotypes = $_GET['phenotype'];
 ?>
 
 
-<div id="accordion_2"></div>
 <div id="message_div_2"></div>
+<div id="accordion_2"></div>
 
 
 <script type="text/javascript" language="javascript" src="./js/gene_summary_data.js"></script>

@@ -47,7 +47,9 @@ if (isset($phenotype_array)) {
                     $query_str = $query_str . "Phenotype_Data_Type, ";
                     $query_str = $query_str . "GROUP_CONCAT(DISTINCT PHENO2.Test_Method SEPARATOR '; ') AS Test_Method, ";
                     $query_str = $query_str . "GROUP_CONCAT(DISTINCT PHENO2.Minimum_Test_P_Value SEPARATOR '; ') AS Minimum_Test_P_Value, ";
-                    $query_str = $query_str . "GROUP_CONCAT(DISTINCT PHENO2.Maximum_Test_P_Value SEPARATOR '; ') AS Maximum_Test_P_Value ";
+                    $query_str = $query_str . "GROUP_CONCAT(DISTINCT PHENO2.Minimum_Negative_Log2_Test_P_Value SEPARATOR '; ') AS Minimum_Negative_Log2_Test_P_Value, ";
+                    $query_str = $query_str . "GROUP_CONCAT(DISTINCT PHENO2.Maximum_Test_P_Value SEPARATOR '; ') AS Maximum_Test_P_Value, ";
+                    $query_str = $query_str . "GROUP_CONCAT(DISTINCT PHENO2.Maximum_Negative_Log2_Test_P_Value SEPARATOR '; ') AS Maximum_Negative_Log2_Test_P_Value ";
                     $query_str = $query_str . "FROM ( ";
                     $query_str = $query_str . "    SELECT ";
                     $query_str = $query_str . "    Gene, ";
@@ -55,7 +57,9 @@ if (isset($phenotype_array)) {
                     $query_str = $query_str . "    Phenotype_Data_Type, ";
                     $query_str = $query_str . "    Test_Method, ";
                     $query_str = $query_str . "    Minimum_Test_P_Value, ";
-                    $query_str = $query_str . "    Maximum_Test_P_Value ";
+                    $query_str = $query_str . "    Minimum_Negative_Log2_Test_P_Value, ";
+                    $query_str = $query_str . "    Maximum_Test_P_Value, ";
+                    $query_str = $query_str . "    Maximum_Negative_Log2_Test_P_Value ";
                     $query_str = $query_str . "    FROM " . $db . "." . $gene_ranking_table . " AS PHENO ";
                     $query_str = $query_str . "    WHERE (PHENO.Phenotype IN ('" . $phenotype_array[$i] . "')) ";
                     $query_str = $query_str . "    ORDER BY Minimum_Test_P_Value ";

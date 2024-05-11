@@ -103,6 +103,7 @@ if (isset($gene_result_arr)) {
     if (!empty($gene_result_arr)) {
         if (is_array($gene_result_arr)) {
             if (count($gene_result_arr) > 0) {
+                echo "<p>* Significant position(s) are highlighted in red. </p>";
                 for ($i = 0; $i < count($gene_result_arr); $i++) {
 
                     // Generate query string
@@ -122,6 +123,30 @@ if (isset($gene_result_arr)) {
                     $result = $stmt->fetchAll();
 
                     $result_arr = pdoResultFilter($result);
+
+
+                    // Generate query string
+                    $phenotype_distribution_table = "pDist_" . $dataset . "_" . $gene_result_arr[$i]["Chromosome"] . "";;
+
+                    $query_str = "SELECT DISTINCT PHENO.Chromosome, ";
+                    $query_str = $query_str . "PHENO.Position, ";
+                    $query_str = $query_str . "PHENO.Gene ";
+                    $query_str = $query_str . "FROM " . $db . "." . $phenotype_distribution_table . " AS PHENO ";
+                    $query_str = $query_str . "WHERE (PHENO.Phenotype IN ('" . $phenotype . "')) ";
+                    $query_str = $query_str . "AND (PHENO.Gene = '" . $gene . "') ";
+                    $query_str = $query_str . "ORDER BY PHENO.Position, PHENO.Chromosome, PHENO.Gene; ";
+
+                    // Execute SQL string
+                    $stmt = $PDO->prepare($query_str);
+                    $stmt->execute();
+                    $result = $stmt->fetchAll();
+
+                    $phenotype_distribution_result_arr = pdoResultFilter($result);
+
+                    $phenotype_distribution_position_array = array();
+                    for ($j=0; $j < count($phenotype_distribution_result_arr); $j++) { 
+                        array_push($phenotype_distribution_position_array, $phenotype_distribution_result_arr[$j]["Position"]);
+                    }
 
 
                     if (isset($result_arr)) {
@@ -148,8 +173,11 @@ if (isset($gene_result_arr)) {
                                             // Position and genotype_description section
                                             $position_array = preg_split("/[;, \n]+/", $value);
                                             for ($j = 0; $j < count($position_array); $j++) {
-                                                echo "<th style=\"border:1px solid black; min-width:80px;\">" . $position_array[$j] . "</th>";
-                                                // echo "<th style=\"border:1px solid black; min-width:80px;\"><a href=\"/SoybeanMADisTool/viewVariantAndPhenotype.php?dataset=" . $dataset . "&chromosome=" . $result_arr[0]["Chromosome"] . "&position=" . $position_array[$j] . "\" target=\"_blank\">" . $position_array[$j] . "</a></th>";
+                                                if (in_array($position_array[$j], $phenotype_distribution_position_array)) {
+                                                    echo "<th style=\"border:1px solid black; min-width:80px; color:red;\">" . $position_array[$j] . "</th>";
+                                                } else {
+                                                    echo "<th style=\"border:1px solid black; min-width:80px;\">" . $position_array[$j] . "</th>";
+                                                }
                                             }
                                         }
                                     }

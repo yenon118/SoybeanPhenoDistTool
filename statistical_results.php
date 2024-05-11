@@ -59,8 +59,8 @@ if (is_string($phenotypes)) {
 ?>
 
 
-<div id="accordion_3"></div>
 <div id="message_div_3"></div>
+<div id="accordion_3"></div>
 
 
 <script type="text/javascript" language="javascript" src="./js/statistical_results.js"></script>
