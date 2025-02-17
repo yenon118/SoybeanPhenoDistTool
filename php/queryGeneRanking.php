@@ -8,6 +8,10 @@ $dataset = trim($_GET['Dataset']);
 $phenotypes = $_GET['Phenotypes'];
 
 
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+
 if (is_string($phenotypes)) {
     $phenotypes = trim($phenotypes);
     $temp_phenotype_array = preg_split("/[;, \n]+/", $phenotypes);
@@ -80,10 +84,8 @@ if (isset($phenotype_array)) {
                         for ($j = 0; $j < count($temp_result_arr); $j++) {
                             array_push($result_arr, $temp_result_arr[$j]);
                         }
-
                     } catch (Exception $e) {
                     }
-
                 }
             }
         }

@@ -1,6 +1,7 @@
 <?php
 
-function getDataQueryString($dataset, $gene, $chromosome, $db, $gff_table, $accession_mapping_table, $where = ""){
+function getDataQueryString($dataset, $gene, $chromosome, $db, $gff_table, $accession_mapping_table, $where = "")
+{
 
     // Generate SQL string
     $query_str = "SELECT ACD.Classification, ACD.Improvement_Status, ";

@@ -1,4 +1,3 @@
-
 <?php
 $TITLE = "Soybean Phenotype Distribution Tool";
 
@@ -7,9 +6,10 @@ include '../header.php';
 include './php/pdoResultFilter.php';
 ?>
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"></link>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+</link>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
 <style>
     .ui-accordion-header.ui-state-active {
         background-color: green;
@@ -28,7 +28,7 @@ include './php/pdoResultFilter.php';
 <form action="gene_summary_data.php" onsubmit="return validateForm('Gmax', 'error_message_div')" method="get" target="_blank">
     <div id="accordion_1"></div>
 
-    <br/><br/>
+    <br /><br />
 
     <div style='margin-top:10px;' align='center'>
         <!-- <button type="button" onclick="uncheck_all_phenotypes('Gmax')" style="margin-right:20px;">Uncheck All Phenotypes</button> -->
@@ -41,7 +41,7 @@ include './php/pdoResultFilter.php';
         <!-- <select name="chromosome_1" id="chromosome_1"></select> -->
     </div>
 
-    <br/><br/>
+    <br /><br />
 
     <div id='error_message_div' style='margin-top:10px;' align='center'></div>
 

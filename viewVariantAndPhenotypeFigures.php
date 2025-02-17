@@ -1,3 +1,6 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <?php
 $TITLE = "Soybean Phenotype Distribution Tool";
@@ -8,10 +11,11 @@ include './php/pdoResultFilter.php';
 ?>
 
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"></link>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-<script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+</link>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-3.0.0.min.js" charset="utf-8"></script>
 
 
 <!-- Get and process the variables -->
@@ -20,6 +24,19 @@ $dataset = trim($_GET['Dataset']);
 $chromosome = trim($_GET['Chromosome']);
 $position = trim($_GET['Position']);
 $phenotype = trim($_GET['Phenotype']);
+
+
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+$chromosome = clean_malicious_input($chromosome);
+$chromosome = preg_replace('/\s+/', '', $chromosome);
+
+$position = clean_malicious_input($position);
+$position = preg_replace('/\s+/', '', $position);
+
+$phenotype = clean_malicious_input($phenotype);
+$phenotype = preg_replace('/\s+/', '', $phenotype);
 
 ?>
 
@@ -66,10 +83,26 @@ echo "<br /><br />";
 <script type="text/javascript" language="javascript" src="./js/viewVariantAndPhenotypeFigures.js"></script>
 
 <script type="text/javascript" language="javascript">
-	var dataset = <?php if(isset($dataset)) {echo json_encode($dataset, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
-	var chromosome = <?php if(isset($chromosome)) {echo json_encode($chromosome, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
-	var position = <?php if(isset($position)) {echo json_encode($position, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
-	var phenotype = <?php if(isset($phenotype)) {echo json_encode($phenotype, JSON_INVALID_UTF8_IGNORE);} else {echo "";}?>;
+	var dataset = <?php if (isset($dataset)) {
+						echo json_encode($dataset, JSON_INVALID_UTF8_IGNORE);
+					} else {
+						echo "";
+					} ?>;
+	var chromosome = <?php if (isset($chromosome)) {
+							echo json_encode($chromosome, JSON_INVALID_UTF8_IGNORE);
+						} else {
+							echo "";
+						} ?>;
+	var position = <?php if (isset($position)) {
+						echo json_encode($position, JSON_INVALID_UTF8_IGNORE);
+					} else {
+						echo "";
+					} ?>;
+	var phenotype = <?php if (isset($phenotype)) {
+						echo json_encode($phenotype, JSON_INVALID_UTF8_IGNORE);
+					} else {
+						echo "";
+					} ?>;
 
 
 	if (dataset, chromosome && position && phenotype) {
@@ -83,7 +116,7 @@ echo "<br /><br />";
 				Position: position,
 				Phenotype: phenotype
 			},
-			success: function (response) {
+			success: function(response) {
 				res = JSON.parse(response);
 
 				if (res && phenotype) {
@@ -123,11 +156,11 @@ echo "<br /><br />";
 
 				}
 			},
-			error: function (xhr, status, error) {
+			error: function(xhr, status, error) {
 				console.log('Error with code ' + xhr.status + ': ' + xhr.statusText);
-				document.getElementById('genotype_figure_div').innerText="";
-				document.getElementById('genotype_summary_table_div').innerHTML="";
-				document.getElementById('improvement_status_summary_figure_div').innerHTML="";
+				document.getElementById('genotype_figure_div').innerText = "";
+				document.getElementById('genotype_summary_table_div').innerHTML = "";
+				document.getElementById('improvement_status_summary_figure_div').innerHTML = "";
 				// document.getElementById('improvement_status_figure_div').innerHTML="";
 				// document.getElementById('classification_figure_div').innerHTML="";
 				var p_tag = document.createElement('p');
@@ -148,9 +181,9 @@ echo "<br /><br />";
 			}
 		});
 	} else {
-		document.getElementById('genotype_figure_div').innerText="";
-		document.getElementById('genotype_summary_table_div').innerHTML="";
-		document.getElementById('improvement_status_summary_figure_div').innerHTML="";
+		document.getElementById('genotype_figure_div').innerText = "";
+		document.getElementById('genotype_summary_table_div').innerHTML = "";
+		document.getElementById('improvement_status_summary_figure_div').innerHTML = "";
 		// document.getElementById('improvement_status_figure_div').innerHTML="";
 		// document.getElementById('classification_figure_div').innerHTML="";
 		var p_tag = document.createElement('p');
@@ -169,5 +202,4 @@ echo "<br /><br />";
 		// p_tag.innerHTML = "Classification distribution figure is not available due to lack of data!!!";
 		// document.getElementById('classification_figure_div').appendChild(p_tag);
 	}
-
 </script>

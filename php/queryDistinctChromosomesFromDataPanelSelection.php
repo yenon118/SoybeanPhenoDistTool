@@ -7,6 +7,10 @@ include 'pdoResultFilter.php';
 $dataset = trim($_GET['Dataset']);
 
 
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+
 $db = "soykb";
 $data_panel_selection_table = "pDist_Soybean_Data_Panel_Selection";
 

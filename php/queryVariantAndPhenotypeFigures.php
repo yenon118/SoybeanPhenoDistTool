@@ -10,6 +10,19 @@ $position = $_GET['Position'];
 $phenotype = $_GET['Phenotype'];
 
 
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+$chromosome = clean_malicious_input($chromosome);
+$chromosome = preg_replace('/\s+/', '', $chromosome);
+
+$position = clean_malicious_input($position);
+$position = preg_replace('/\s+/', '', $position);
+$position = preg_replace("/[^0-9.]/", "", $position);
+
+$phenotype = clean_malicious_input($phenotype);
+
+
 $db = "soykb";
 $genotype_table = "act_" . $dataset . "_genotype_" . $chromosome;
 $functional_effect_table = "act_" . $dataset . "_func_eff_" . $chromosome;
@@ -56,4 +69,5 @@ $result = $stmt->fetchAll();
 $result_arr = pdoResultFilter($result);
 
 echo json_encode(array("data" => $result_arr), JSON_INVALID_UTF8_IGNORE);
+
 ?>

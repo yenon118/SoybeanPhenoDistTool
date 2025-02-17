@@ -10,6 +10,17 @@ $dataset = trim($_GET['Dataset']);
 $gene = $_GET['Gene'];
 $chromosome = $_GET['Chromosome'];
 
+
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+$gene = clean_malicious_input($gene);
+$gene = preg_replace('/\s+/', '', $gene);
+
+$chromosome = clean_malicious_input($chromosome);
+$chromosome = preg_replace('/\s+/', '', $chromosome);
+
+
 $db = "soykb";
 
 // Table names and datasets

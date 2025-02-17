@@ -10,6 +10,17 @@ $dataset = trim($_GET['Dataset']);
 $gene = $_GET['Gene'];
 $chromosome = $_GET['Chromosome'];
 
+
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+$gene = clean_malicious_input($gene);
+$gene = preg_replace('/\s+/', '', $gene);
+
+$chromosome = clean_malicious_input($chromosome);
+$chromosome = preg_replace('/\s+/', '', $chromosome);
+
+
 $db = "soykb";
 
 // Table names and datasets
@@ -38,7 +49,7 @@ $result_arr = pdoResultFilter($result);
 for ($i = 0; $i < count($result_arr); $i++) {
 	if (preg_match("/\+/i", $result_arr[$i]["Imputation"])) {
 		$result_arr[$i]["Imputation"] = "+";
-	} else{
+	} else {
 		$result_arr[$i]["Imputation"] = "";
 	}
 }

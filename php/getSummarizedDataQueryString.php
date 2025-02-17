@@ -1,6 +1,7 @@
 <?php
 
-function getSummarizedDataQueryString($dataset, $gene, $chromosome, $db, $gff_table, $accession_mapping_table, $having = ""){
+function getSummarizedDataQueryString($dataset, $gene, $chromosome, $db, $gff_table, $accession_mapping_table, $having = "")
+{
 
     // Generate SQL string
     $query_str = "SELECT COUNT(IF(ACD.Improvement_Status = 'G. soja', 1, null)) AS Soja, ";

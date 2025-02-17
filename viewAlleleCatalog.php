@@ -1,3 +1,7 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <?php
 $TITLE = "Soybean Phenotype Distribution Tool";
 
@@ -9,12 +13,13 @@ include './php/getSummarizedDataQueryString.php';
 ?>
 
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css"></link>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+</link>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
 
 
-<link rel="stylesheet" href="css/modal.css" />
+<link rel="stylesheet" href="./css/modal.css" />
 
 
 <!-- Back button -->
@@ -42,6 +47,23 @@ $gene = trim($_GET['Gene']);
 $chromosome = trim($_GET['Chromosome']);
 $position = trim($_GET['Position']);
 $phenotype = trim($_GET['Phenotype']);
+
+
+$dataset = clean_malicious_input($dataset);
+$dataset = preg_replace('/\s+/', '', $dataset);
+
+$gene = clean_malicious_input($gene);
+$gene = preg_replace('/\s+/', '', $gene);
+
+$chromosome = clean_malicious_input($chromosome);
+$chromosome = preg_replace('/\s+/', '', $chromosome);
+
+$position = clean_malicious_input($position);
+$position = preg_replace('/\s+/', '', $position);
+
+$phenotype = clean_malicious_input($phenotype);
+$phenotype = preg_replace('/\s+/', '', $phenotype);
+
 
 $db = "soykb";
 
@@ -144,7 +166,7 @@ if (isset($gene_result_arr)) {
                     $phenotype_distribution_result_arr = pdoResultFilter($result);
 
                     $phenotype_distribution_position_array = array();
-                    for ($j=0; $j < count($phenotype_distribution_result_arr); $j++) { 
+                    for ($j = 0; $j < count($phenotype_distribution_result_arr); $j++) {
                         array_push($phenotype_distribution_position_array, $phenotype_distribution_result_arr[$j]["Position"]);
                     }
 
@@ -262,14 +284,10 @@ if (isset($gene_result_arr)) {
 
                                     echo "<br />";
                                     echo "<br />";
-
-
                                 }
                             }
                         }
                     }
-
-
                 }
             }
         }

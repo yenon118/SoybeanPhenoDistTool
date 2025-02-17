@@ -1,5 +1,5 @@
 function validateForm(organism, error_message_div_id) {
-	let checkbox_ids = document.querySelectorAll('input[id^='+organism+'_phenotype_]');
+	let checkbox_ids = document.querySelectorAll('input[id^=' + organism + '_phenotype_]');
 	let check_flag = false;
 	for (let i = 0; i < checkbox_ids.length; i++) {
 		if (checkbox_ids[i].checked) {
@@ -22,23 +22,23 @@ function validateForm(organism, error_message_div_id) {
 }
 
 function uncheck_all_phenotypes(organism) {
-    let ids = document.querySelectorAll('input[id^='+organism+'_phenotype_]');
+	let ids = document.querySelectorAll('input[id^=' + organism + '_phenotype_]');
 
-    for (let i = 0; i < ids.length; i++) {
-        if (ids[i].checked) {
-            ids[i].checked = false;
-        }
-    }
+	for (let i = 0; i < ids.length; i++) {
+		if (ids[i].checked) {
+			ids[i].checked = false;
+		}
+	}
 }
 
 function check_all_phenotypes(organism) {
-    let ids = document.querySelectorAll('input[id^='+organism+'_phenotype_]');
+	let ids = document.querySelectorAll('input[id^=' + organism + '_phenotype_]');
 
-    for (let i = 0; i < ids.length; i++) {
-        if (!ids[i].checked) {
-            ids[i].checked = true;
-        }
-    }
+	for (let i = 0; i < ids.length; i++) {
+		if (!ids[i].checked) {
+			ids[i].checked = true;
+		}
+	}
 }
 
 async function queryPhenotypesFromPhenotypeSelection(dataset) {
@@ -109,10 +109,10 @@ async function updatePhenotypeSelections(phenotype_accordion_id, dataset) {
 	var result_array = await queryPhenotypesFromPhenotypeSelection(dataset);
 	if (result_array) {
 		// Check the existance of accordion instance and remove if it exists
-		var accordion_instance = $("#"+String(phenotype_accordion_id)).accordion("instance");
+		var accordion_instance = $("#" + String(phenotype_accordion_id)).accordion("instance");
 		if (accordion_instance != undefined) {
-			$("#"+String(phenotype_accordion_id)).accordion("destroy");
-			$("#"+String(phenotype_accordion_id)).empty();
+			$("#" + String(phenotype_accordion_id)).accordion("destroy");
+			$("#" + String(phenotype_accordion_id)).empty();
 		}
 		document.getElementById(phenotype_accordion_id).innerHTML = "";
 
@@ -126,9 +126,9 @@ async function updatePhenotypeSelections(phenotype_accordion_id, dataset) {
 				// Create a h3 tag
 				var h3_tag = document.createElement('h3');
 				// Set id attribute
-				h3_tag.id = "ui-id-h3-"+String(current_phenotype_group.replace(/ /g, "_"));
+				h3_tag.id = "ui-id-h3-" + String(current_phenotype_group.replace(/ /g, "_"));
 				// Set aria-controls attribute
-				h3_tag.setAttribute("aria-controls", "ui-id-div-"+String(current_phenotype_group.replace(/ /g, "_")));
+				h3_tag.setAttribute("aria-controls", "ui-id-div-" + String(current_phenotype_group.replace(/ /g, "_")));
 				// Set inner HTML
 				h3_tag.innerHTML = current_phenotype_group;
 				// Append h3 tag
@@ -137,9 +137,9 @@ async function updatePhenotypeSelections(phenotype_accordion_id, dataset) {
 				// Create a div tag
 				var div_tag = document.createElement('div');
 				// Set id attribute
-				div_tag.id = "ui-id-div-"+String(current_phenotype_group.replace(/ /g, "_"));
+				div_tag.id = "ui-id-div-" + String(current_phenotype_group.replace(/ /g, "_"));
 				// Set aria-labelledby attribute for the div element
-				div_tag.setAttribute("aria-labelledby", "ui-id-h3-"+String(current_phenotype_group.replace(/ /g, "_")));
+				div_tag.setAttribute("aria-labelledby", "ui-id-h3-" + String(current_phenotype_group.replace(/ /g, "_")));
 				// Append div tag
 				document.getElementById(phenotype_accordion_id).appendChild(div_tag);
 
@@ -162,12 +162,12 @@ async function updatePhenotypeSelections(phenotype_accordion_id, dataset) {
 			label_tag.textContent = current_phenotype;
 
 			// Append input tag and label tag to the body or another container
-			document.getElementById("ui-id-div-"+String(current_phenotype_group.replace(/ /g, "_"))).appendChild(input_tag);
-			document.getElementById("ui-id-div-"+String(current_phenotype_group.replace(/ /g, "_"))).appendChild(label_tag);
+			document.getElementById("ui-id-div-" + String(current_phenotype_group.replace(/ /g, "_"))).appendChild(input_tag);
+			document.getElementById("ui-id-div-" + String(current_phenotype_group.replace(/ /g, "_"))).appendChild(label_tag);
 		}
 
 		// Make accordion
-		$("#"+String(phenotype_accordion_id)).accordion({
+		$("#" + String(phenotype_accordion_id)).accordion({
 			active: false,
 			collapsible: true,
 			icons: ""
